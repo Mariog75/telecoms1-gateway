@@ -3,13 +3,12 @@ import sys
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-# Bind the socket to the port
 server_address = ('localhost', 50000)
-client_address = ('localhost', 40789)
-print("starting up on port ", server_address, file=sys.stderr)
+gateway_address = ('localhost', 40000)
+# Bind the socket to the port
+print("starting up on port ", gateway_address, file=sys.stderr)
 
-sock.bind(server_address)
+sock.bind(gateway_address)
 
 while True:
     print("\nwaiting to receive message", file=sys.stderr)
@@ -19,6 +18,5 @@ while True:
     print(data, file=sys.stderr)
 
     if data:
-        ack_bit = b'1'
-        sent = sock.sendto(ack_bit, client_address)
-        print("sent ", sent, " bytes back to ", client_address, file=sys.stderr)t
+        sent = sock.sendto(data, server_address)
+        print("sent ", sent, " bytes to ", server_address, file=sys.stderr)
