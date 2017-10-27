@@ -6,17 +6,17 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_address = ('localhost', 50000)
 gateway_address = ('localhost', 40000)
 # Bind the socket to the port
-print("starting up on port ", gateway_address, file=sys.stderr)
+print("Gateway starting up on port ", gateway_address)
 
 sock.bind(gateway_address)
 
 while True:
-    print("\nwaiting to receive message", file=sys.stderr)
+    print("\nGateway waiting to receive message")
     data, address = sock.recvfrom(40789)
 
-    print("received ", (len(data)), " bytes from ", address, file=sys.stderr)
-    print(data, file=sys.stderr)
+    print("Gateway received ", (len(data)), " bytes from ", address)
+    print(data)
 
     if data:
         sent = sock.sendto(data, server_address)
-        print("sent ", sent, " bytes to ", server_address, file=sys.stderr)
+        print("Gateway sent ", sent, " bytes to ", server_address)
